@@ -7,9 +7,14 @@ class TasksController < ApplicationController
 	end
 
 	def create
-		binding.pry
 		# @task = Task.create(title: @title, description: @description)
-		@task = current_user.tasks.build(task_params)
+		# @task = current_user.tasks.build(task_params)
+		@task = Task.new(task_params)
+		if @task.save
+			redirect_to root_url, notic: "Successfully Create Task"
+		else
+			render 'new'
+		end
 	end
 
 	private
