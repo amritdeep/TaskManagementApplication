@@ -1,0 +1,22 @@
+<h1>Task Management Application</h1>
+<p>Welcome to Task Management Application</p>
+
+<table border=1>
+	<tr>
+		<th>SN</th>
+		<th>Title</th>
+		<th>Description</th>
+	</tr>
+
+	<% @tasks.each do |t|%>
+	<tr>
+		<td><%= t.id %></td>
+		<td><%= t.title %></td>
+		<td><%= t.description %></td>
+
+	</tr>
+	<% end %>
+</table>
+
+
+<%= link_to "Create New Task", new_task_url %>
