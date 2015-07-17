@@ -10,14 +10,16 @@ class TasksController < ApplicationController
 	end
 
 	def create
-		# @task = Task.create(title: @title, description: @description)
-		# @task = current_user.tasks.build(task_params)
-		@tasks = Task.new(task_params)
-		if @tasks.save
+		@task = current_user.tasks.build(task_params)
+		if @task.save
 			redirect_to root_url, notic: "Successfully Create Task"
 		else
 			render 'new'
 		end
+	end
+
+	def show
+		@task=Task.where(id: params[:id])
 	end
 
 	private
