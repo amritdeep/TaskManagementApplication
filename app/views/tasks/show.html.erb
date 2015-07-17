@@ -10,7 +10,7 @@
 	<tr>
 		<td><%= t.title %></td>
 		<td><%= t.description %></td>
-		<td><%= link_to "Invite Friend", "#" %></td>
+		<td><%= link_to "Invite Friend", invite_task_url(t.id) %></td>
 	</tr>
 	<% end %>
 

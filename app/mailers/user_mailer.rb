@@ -1,8 +1,10 @@
 class UserMailer < ActionMailer::Base
   default from: "from@example.com"
 
-  def send_invitation(user)
+  def send_invitation(user, task)
   	@user = user
-  	mail(to: @user.email, subject: "Shaer Task With You")
+  	@task = task
+  	
+  	mail(to: @user.email, subject: "Share Task With You")
   end
 end
