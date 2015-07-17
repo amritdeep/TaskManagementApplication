@@ -1,4 +1,17 @@
 Rails.application.routes.draw do
+  get 'home/index'
+
+  devise_for :users
+  # root to: "home#index"
+  root to: "tasks#index"
+
+  resources :tasks do
+    member do
+      get 'invite'
+      post 'send_invitation'
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -15,16 +28,16 @@ Rails.application.routes.draw do
   #   resources :products
 
   # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+    # resources :products do
+    #   member do
+    #     get 'short'
+    #     post 'toggle'
+    #   end
+  
+    #   collection do
+    #     get 'sold'
+    #   end
+    # end
 
   # Example resource route with sub-resources:
   #   resources :products do

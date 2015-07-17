@@ -1,0 +1,5 @@
+
+<%= simple_form_for @user, :url => send_invitation_task_url, :method => :post do |f| %>
+	<%= f.input :email %>
+	<%= f.button :submit %>
+<% end %>	
