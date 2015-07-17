@@ -2,7 +2,8 @@ class TasksController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		@tasks = Task.all.order(created_at: :desc)
+		@tasks = Task.where(user_id: current_user.id).all.order(created_at: :desc)
+		@share_tasks=current_user.tasks.all.order(created_at: :desc)
 	end
 
 	def new
@@ -11,6 +12,7 @@ class TasksController < ApplicationController
 
 	def create
 		@task = current_user.tasks.build(task_params)
+		@task.user_id = current_user.id
 		if @task.save
 			redirect_to root_url, notic: "Successfully Create Task"
 		else
@@ -33,12 +35,14 @@ class TasksController < ApplicationController
 		@user=User.where(email: @email).first
 
 		if @user.present?
+			@user.tasks.append(@task)
 			UserMailer.send_invitation(current_user, @user, @task)
 		else
 			@user=User.create(email: @email)
 			if @user.save
 				render 'invite'
 			else
+				@user.tasks.append(@task)
 				UserMailer.send_invitation(current_user, @user, @task)
 			end
 		end

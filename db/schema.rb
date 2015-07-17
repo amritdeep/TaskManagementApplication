@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150717133927) do
+ActiveRecord::Schema.define(version: 20150717170923) do
 
   create_table "tasks", force: true do |t|
     t.string   "title"
@@ -22,6 +22,11 @@ ActiveRecord::Schema.define(version: 20150717133927) do
   end
 
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
+
+  create_table "tasks_users", id: false, force: true do |t|
+    t.integer "task_id", null: false
+    t.integer "user_id", null: false
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
