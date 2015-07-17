@@ -33,13 +33,13 @@ class TasksController < ApplicationController
 		@user=User.where(email: @email).first
 
 		if @user.present?
-			UserMailer.send_invitation(@user)
+			UserMailer.send_invitation(current_user, @user, @task)
 		else
-			# binding.pry
 			@user=User.create(email: @email)
 			if @user.save
+				render 'invite'
 			else
-				render 'User/new' 
+				UserMailer.send_invitation(current_user, @user, @task)
 			end
 		end
 	end
